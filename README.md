@@ -68,27 +68,46 @@ Enter `q` to exit.
 * CMake
 * Tested with Microsoft Visual C++ / Visual Studio
 
-## Build
+## Windows Quick Start
 
-From the project root, configure and build the project using CMake.
+If CMake is not installed or the `cmake` command is not available, install it from PowerShell or Windows Terminal:
 
-Example:
-
-```bash
-cmake -S . -B build
-cmake --build build
+```powershell
+winget install --id Kitware.CMake -e
 ```
 
-The project produces two executables:
+Close and reopen the terminal after installation, then verify that CMake is available:
+
+```powershell
+cmake --version
+```
+
+From the project root, configure and build the Debug version:
+
+```powershell
+cmake -S . -B build
+cmake --build build --config Debug
+```
+
+Run the automated tests:
+
+```powershell
+ctest --test-dir build -C Debug --output-on-failure
+```
+
+A successful run should report:
 
 ```text
-SSCC_validator
-SSCC_validator_tests
+100% tests passed, 0 tests failed
 ```
 
-The first is the main console application.
+Run the application:
 
-The second contains the automated validation tests.
+```powershell
+.\build\Debug\SSCC_validator.exe
+```
+
+If CMake cannot find the C++ compiler, open **Developer PowerShell for VS 2022**, navigate to the project directory, and repeat the configure and build commands.
 
 ## Tests
 
@@ -102,24 +121,6 @@ The project includes tests for:
 * non-numeric characters
 
 Tests are registered with CTest.
-
-After building the project, run:
-
-```bash
-ctest --test-dir build --output-on-failure
-```
-
-When using a multi-configuration generator such as Visual Studio, specify the build configuration:
-
-```bash
-ctest --test-dir build -C Debug --output-on-failure
-```
-
-A successful run should report:
-
-```text
-100% tests passed, 0 tests failed
-```
 
 ## Project Structure
 
