@@ -1,0 +1,24 @@
+# Build directories
+build/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+
+# Compiler output
+*.obj
+*.exe
+*.pdb
+*.ilk
+
+# Local CMake user settings
+CMakeUserPresets.json
