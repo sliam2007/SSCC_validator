@@ -40,9 +40,8 @@ int main()
 	while (true)
 	{
 		cout << "Enter SSCC code (or q to quit): ";
-		getline(cin, input);
 
-		if (input == "q")
+		if (!getline(cin, input) || input == "q")
 			break;
 
 		auto result = validator.validate(input);

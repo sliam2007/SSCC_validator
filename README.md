@@ -6,6 +6,8 @@ The application was created for the supplied TSX GmbH examples, using the GS1 co
 
 `34260311`
 
+This prefix is fixed intentionally to match the requirements of the assignment.
+
 ## Validation
 
 The validator checks the scanned value in the following order:
@@ -38,6 +40,17 @@ The SSCC check digit is calculated using the GS1 Modulo 10 algorithm.
 ## Running the Application
 
 After starting the application, all six examples supplied in the assignment are validated automatically.
+
+The expected results are:
+
+| Example | Scanned value | Result | Reason |
+| --- | --- | --- | --- |
+| 1 | `00034260311130776594` | Valid | — |
+| 2 | `02044260311130776512` | Invalid | `Invalid AI: expected 00, got 02` |
+| 3 | `00034260311130776144` | Invalid | `Invalid check digit: expected 3, got 4` |
+| 4 | `00034260311130776570` | Valid | — |
+| 5 | `0003426031113077646` | Invalid | `Invalid length: expected 20 characters, got 19` |
+| 6 | `00034260321130774636` | Invalid | `Invalid company prefix: expected 34260311, got 34260321` |
 
 The application then switches to interactive CLI mode:
 
@@ -93,13 +106,13 @@ Tests are registered with CTest.
 After building the project, run:
 
 ```bash
-ctest --test-dir build
+ctest --test-dir build --output-on-failure
 ```
 
-When using the Visual Studio CMake configuration, run `ctest` from the generated build directory, for example:
+When using a multi-configuration generator such as Visual Studio, specify the build configuration:
 
-```text
-out/build/x64-debug
+```bash
+ctest --test-dir build -C Debug --output-on-failure
 ```
 
 A successful run should report:
